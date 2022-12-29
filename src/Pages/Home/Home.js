@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AddToCart from "../AddToCart/AddToCart";
 import Player from "../Player/Player";
+import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
   const [search, setSearch] = useState("");
@@ -16,6 +17,15 @@ const Home = () => {
   const handleDeletePlayer = (id) => {
     const deleteItem = addPlayer.filter((player) => player.idPlayer !== id);
     setAddPlayer(deleteItem);
+    toast(" Player Deleted Successfully!", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+    });
   };
 
   return (
@@ -52,6 +62,18 @@ const Home = () => {
           handleDeletePlayer={handleDeletePlayer}
         ></AddToCart>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

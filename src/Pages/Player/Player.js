@@ -10,7 +10,7 @@ const Player = ({ player, setAddPlayer, addPlayer }) => {
     idPlayer,
   } = player;
 
-  const handleAddPlayer = () => {
+  const handleAddPlayer = (id) => {
     const info = {
       strThumb,
       strNationality,
@@ -23,8 +23,37 @@ const Player = ({ player, setAddPlayer, addPlayer }) => {
       setAddPlayer(newInfo);
     }
   };
+
+  const handleBookmark = () => {
+    const info = {
+      strThumb,
+      strNationality,
+      strPlayer,
+      strPosition,
+      idPlayer,
+      quantity: 0,
+    };
+    const prevBookmark = localStorage.getItem("bookmark");
+    const oldBookmark = JSON.parse(prevBookmark);
+    if (oldBookmark) {
+      const exist = oldBookmark.find((booked) => booked.idPlayer === idPlayer);
+      if (exist) {
+        exist.quantity = exist.quantity + 1;
+        localStorage.setItem("bookmark", JSON.stringify(oldBookmark));
+        alert("Already Bookmarked");
+      } else {
+        localStorage.setItem(
+          "bookmark",
+          JSON.stringify([...oldBookmark, info])
+        );
+      }
+    } else {
+      localStorage.setItem("bookmark", JSON.stringify([info]));
+    }
+  };
+
   return (
-    <div>
+    <div data-aos="fade-down" data-aos-easing="linear" data-aos-duration="700">
       <div className="card w-[85%] h-[90%] bg-base-100 shadow-xl mx-auto">
         <figure>
           <img
@@ -56,7 +85,7 @@ const Player = ({ player, setAddPlayer, addPlayer }) => {
           </div>
           <div className="flex justify-between mt-3">
             <button
-              onClick={handleAddPlayer}
+              onClick={() => handleAddPlayer(idPlayer)}
               className="btn btn-outline btn-sm btn-primary"
             >
               Add Player
@@ -64,7 +93,12 @@ const Player = ({ player, setAddPlayer, addPlayer }) => {
             <button className="btn btn-outline btn-sm btn-neutral">
               Details
             </button>
-            <button className="btn btn-outline btn-sm btn-error">Button</button>
+            <button
+              onClick={handleBookmark}
+              className="btn btn-outline btn-sm btn-error"
+            >
+              Bookmark
+            </button>
           </div>
         </div>
       </div>
