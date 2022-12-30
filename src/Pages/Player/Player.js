@@ -1,6 +1,6 @@
 import React from "react";
 
-const Player = ({ player, setAddPlayer, addPlayer }) => {
+const Player = ({ player, setAddPlayer, addPlayer, setModalPlayer }) => {
   const {
     strThumb,
     strDescriptionEN,
@@ -90,9 +90,13 @@ const Player = ({ player, setAddPlayer, addPlayer }) => {
             >
               Add Player
             </button>
-            <button className="btn btn-outline btn-sm btn-neutral">
+            <label
+              onClick={() => setModalPlayer(player)}
+              htmlFor="my-modal-3"
+              className="btn btn-outline btn-sm btn-neutral"
+            >
               Details
-            </button>
+            </label>
             <button
               onClick={handleBookmark}
               className="btn btn-outline btn-sm btn-error"

@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import AddToCart from "../AddToCart/AddToCart";
 import Player from "../Player/Player";
 import { ToastContainer, toast } from "react-toastify";
+import ModalPlayer from "../ModalPlayer/ModalPlayer";
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const [players, setPlayers] = useState([]);
   const [addPlayer, setAddPlayer] = useState([]);
+
+  const [modalPlayer, setModalPlayer] = useState({});
   useEffect(() => {
     fetch(`https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${search}
     `)
@@ -47,6 +50,7 @@ const Home = () => {
                 player={player}
                 addPlayer={addPlayer}
                 setAddPlayer={setAddPlayer}
+                setModalPlayer={setModalPlayer}
               ></Player>
             ))
           ) : (
@@ -62,6 +66,7 @@ const Home = () => {
           handleDeletePlayer={handleDeletePlayer}
         ></AddToCart>
       </div>
+      <ModalPlayer modalPlayer={modalPlayer}></ModalPlayer>
       <ToastContainer
         position="top-center"
         autoClose={1500}
